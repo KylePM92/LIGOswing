@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="ff" green="66" red="66" type="rgb"/>
+    </Property>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="1118" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel1" min="-2" pref="675" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="616" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="619" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane2" min="-2" pref="150" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="426" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="318" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane3" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="1581" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Back"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="          According to newtonian theory, gravitational effects propagate from place to place instantaneously. With the&#xa; advent of Einstein&apos;s special theory of relativity in 1905, a theory uniting the concepts of space and time into that&#xa; of four dimensional flat space-time (named Minkowski space-time after the mathematician Hermann Minkowski),&#xa; a problem became discernible with newtonian theory. According to special relativity, which is the current guideline&#xa; to the form of all physical theory, the speed of light, c = 3 x 1010 cm s-1, is the top speed allowed to physical&#xa; particles or forces: There can be no instantaneous propagation. After a decade of search for new concepts to &#xa;make gravitational theory compatible with the spirit of special relativity, Einstein came up with the theory of general&#xa; relativity (1915), the prototype of all modern gravitational theories. Its crucial ingredient, involving a colossal&#xa; intellectual jump, is the concept of gravitation, not as a force, but as a manifestation of the curvature of&#xa; space-time, an idea first mentioned in rudimentary form by the mathematician Ceorg Bernhard Riemann in 1854.&#xa; In Einstein&apos;s hands gravitation theory was thus transformed from a theory of forces into the first dynamical theory&#xa; of geometry, the geometry of four dimensional curved space-time.&#xa;          Why talk of curvature? One of Einstein&apos;s first predictions was the gravitational redshift: As any wave, such as light,&#xa; propagates away from a gravitating mass, all frequencies in it are reduced by an amount proportional to the&#xa; change in gravitational potential experienced by the wave. This redshift has been measured in the laboratory, in&#xa; solar observations, and by means of high precision clocks flown in airplanes. However, imagine for a moment&#xa; that general relativity had not yet been invented, but the redshift has already been measured. According to a&#xa; simple argument owing to Alfred Schild, wave propagation under stationary circumstances can display a redshift&#xa; only if the usual geometric relations implicit in Minkowski space-time are violated: The space-time must be curved.&#xa; The observations of the redshift thus show that space-time must be curved in the vicinity of&#xa; masses, regardless of the precise form of the gravitational theory.&#xa;          Einstein provided 10 equations relating the metric (a tensor with 10 independent components describing the&#xa; geometry of space-time) to the material energy momentum tensor (also composed of 10 components, one of&#xa; which corresponds to our previous rho). These Einstein field equations, in which both of the previously mentioned&#xa; constants G and c figure as parameters, replace Poisson&apos;s equation. Einstein also replaced the newtonian law of&#xa; motion by the statement that free test particles move along geodesics, the shortest curves in the space-time&#xa; geometry. The influential gravitation theorist John Archibald Wheeler has encapsulated general relativity in the&#xa; aphorism ``curvature tells matter how to move, and matter tells space-time how to curve.&apos;&apos; The&#xa; E&#xf6;tvos-Dicke-Braginsky experiments demonstrate with high precision that free test particles all travel&#xa; along the same trajectories in space-time, whereas the gravitational redshift shows (with more modest precision)&#xa; these universal trajectories to be identical with geodesics.&#xa;         Despite the great contrast between General Relativity and Newtonian theory, predictions of the former approach&#xa; the latter for systems in which velocities are small compared to c and gravitational potentials are weak enough&#xa; that they cannot cause larger velocities. This is why we can discuss with newtonian theory the structure of the&#xa; earth and planets, stars and stellar clusters, and the gross features of motions in the solar system without fear&#xa; of error.&#xa;        Einstein noted two other predictions of General Relativity. First, light beams passing near a gravitating body must&#xa; suffer a slight deflection proportional to that body&apos;s mass. First verified by observations of stellar images during&#xa; the 1919 total solar eclipse, this effect also causes deflection of quasar radio images by the sun, is the likely cause&#xa; of the phenomenon of ``double quasars&apos;&apos; with identical redshift and of the recently discovered giant arcs in clusters&#xa; of galaxies (both probably effects of gravitational lensing), and is part and parcel of the black hole phenomenon.&#xa; In a closely related effect first noted by Irwin Shapiro, radiation passing near a gravitating body is delayed in its&#xa; flight in proportion to the body&apos;s mass, a time delay verified by means of radar waves deflected by the sun on their&#xa; way from Earth to Mercury and back.&#xa;        The second effect is the precession of the periastron of a binary system. According to newtonian gravitation, the&#xa; orbit of each member of a binary is a coplanar ellipse with orientation fixed in space. General relativity predicts a&#xa; slow rotation of the ellipse&apos;s major axis in the plane of the orbit (precession of the periastron). Originally verified&#xa; in the motion of Mercury, the precession has of late also been detected in the orbits of binary pulsars.&#xa;&#xa;All three effects mentioned depend on features of General Relativity beyond the weak equivalence principle. Indeed,&#xa; Einstein built into general relativity the much more encompassing ``strong equivalence principle&apos;&apos;: the local forms of&#xa; all nongravitational physical laws and the numerical values of all dimensionless physical constants arc the same in the&#xa; presence of a gravitational field as in its absence. In practice this implies that within any region in a gravitational field,&#xa; sufficiently small that space-time curvature may be ignored, all physical laws, when expressed in terms of the space-time&#xa; metric, have the same forms as required by special relativity in terms of the metric of Minkowski space-time. Thus in a&#xa; small region in the neighborhood of a black hole (the source of a strong gravitational field) we would describe&#xa; electromagnetism and optics with the same Maxwell equations used in earthly laboratories where the gravitational field&#xa; is weak, and we would employ the laboratory values of the electrical permittivity and magnetic&#xa; susceptibility of the vacuum."/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/Users/danny/LIGOInterface/LIGO/images/Einstein gravity.jpg"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <Properties>
+        <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+        <Property name="verticalScrollBarPolicy" type="int" value="21"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea2">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="48" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="Gravitational Theory&#xa;By Einstein"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/Users/danny/LIGOInterface/LIGO/images/494519-gravity-waves.jpg"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea3">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
