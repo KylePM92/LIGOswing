@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.*;
 import java.awt.image.BufferedImage;
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -28,6 +29,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+import ligo.JP_LIGO;
+import ligo.JP_BLACKHOLES;
+import ligo.JP_EINSTEIN;
+import ligo.JP_DISCOVERY;
 
 /**
  *
@@ -35,12 +40,15 @@ import javax.swing.border.EmptyBorder;
  */
 public class Main_Menu extends javax.swing.JFrame {
 
-    private JPanel pnl = new JPanel();
-    private JPanel intro_panel = new JPanel();
-    private JButton btn_prev = new JButton("Prev");
-    private JButton btn_next = new JButton("Next");
+    private static JPanel pnl = new JPanel();
+    private static JPanel intro_panel = new JPanel();
+    private static int current_panel = 0;
+    private static JButton btn_prev = new JButton("Prev");
+    private static JButton btn_next = new JButton("Next");
+    private static JPanel[] panels = new JPanel[5];
     
     public Main_Menu() throws IOException {
+        
         this.setTitle("LIGO");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setBounds(0,0,screenSize.width, screenSize.height);  
@@ -50,7 +58,8 @@ public class Main_Menu extends javax.swing.JFrame {
 	this.setVisible(true);
         this.setLayout(new BorderLayout());
         
-        JLabel background = new JLabel(new ImageIcon ("C:\\\\Users\\\\Kyle\\\\Desktop\\\\LSU\\\\2016Spring\\\\CSC4243\\\\LIGOswing\\\\LIGO\\\\images\\\\space.jpg"));
+        JLabel background = new JLabel(new ImageIcon (
+                "C:\\\\Users\\\\Kyle\\\\Desktop\\\\LSU\\\\2016Spring\\\\CSC4243\\\\LIGOswing\\\\LIGO\\\\images\\\\space.jpg"));
         this.setContentPane(background);
         background.setLayout(new FlowLayout());
         
@@ -64,15 +73,29 @@ public class Main_Menu extends javax.swing.JFrame {
         btn_prev.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                int temp = (checkPanel("prev", current_panel));
+                current_panel = temp;
+                JPanel tempPanel = panels[temp];
+                pnl.setVisible(false);
+                pnl.remove(1);      
+                tempPanel.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-250));
+                pnl.add(tempPanel, 1);
+                pnl.setVisible(true); 
             }
         });
        
-        btn_next.setActionCommand("enable");
+        //btn_next.setActionCommand("enable");
         btn_next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                int temp = (checkPanel("next", current_panel));
+                current_panel = temp;
+                JPanel tempPanel = panels[temp];
+                pnl.setVisible(false);
+                pnl.remove(1);
+                tempPanel.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-250));
+                pnl.add(tempPanel, 1);
+                pnl.setVisible(true); 
             }
         });
         
@@ -85,9 +108,14 @@ public class Main_Menu extends javax.swing.JFrame {
         
         this.add(pnl, BorderLayout.CENTER);
         this.pack();
-        this.setVisible(true);
-        
-        
+        this.setVisible(true);      
+   
+        //JP_LIGO jp_ligo = new JP_LIGO();
+        panels[0] = intro_panel;
+        panels[1] = new JP_LIGO();
+        panels[2] = new JP_BLACKHOLES();
+        panels[3] = new JP_EINSTEIN();
+        panels[4] = new JP_DISCOVERY();
     }
 
     /**
@@ -142,13 +170,32 @@ public class Main_Menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                try {
-//                    new Main_Menu().setVisible(true);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Main_Menu.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+           
             }
         });
+    }
+    
+    public static int checkPanel(String btn, int currentPanel){
+        
+        int newPanel = 0;
+        
+        if("prev".equals(btn)){
+           if(currentPanel == 0){
+               newPanel = 4;
+           }else{
+               newPanel = currentPanel - 1;
+           }
+        }
+        else{
+            if(currentPanel == 4){
+               newPanel = 0;
+           }else{
+               newPanel = currentPanel + 1;
+           }
+        }
+        
+        return newPanel;
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
