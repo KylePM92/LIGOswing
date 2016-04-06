@@ -36,6 +36,9 @@ import javax.swing.border.EmptyBorder;
 public class Main_Menu extends javax.swing.JFrame {
 
     private JPanel pnl = new JPanel();
+    private JPanel intro_panel = new JPanel();
+    private JButton btn_prev = new JButton("Prev");
+    private JButton btn_next = new JButton("Next");
     
     public Main_Menu() throws IOException {
         this.setTitle("LIGO");
@@ -56,11 +59,35 @@ public class Main_Menu extends javax.swing.JFrame {
         //pnl.setBackground(Color.black);
         //pnl.setBorder(BorderFactory.createLineBorder(Color.gray));
         pnl.setOpaque(false);
+        
+        btn_prev.setActionCommand("enable");
+        btn_prev.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+       
+        btn_next.setActionCommand("enable");
+        btn_next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        
+        intro_panel.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-250));
+        intro_panel.setBackground(Color.yellow);
+        pnl.add(btn_prev,BorderLayout.WEST);
+        pnl.add(intro_panel,BorderLayout.CENTER);
+        pnl.add(btn_next,BorderLayout.EAST);
         background.add(pnl);
         
         this.add(pnl, BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);
+        
+        
     }
 
     /**
