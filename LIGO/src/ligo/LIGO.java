@@ -43,7 +43,6 @@ public class LIGO extends JPanel{
     
     public static void main(String[] args) throws MalformedURLException{
       
-        final URL url = new URL("https://media.giphy.com/media/KpBP8R8rBhwQ/giphy.gif");
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -51,10 +50,9 @@ public class LIGO extends JPanel{
                 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 f.setLocationByPlatform(true);
 
-                Image image = f.getToolkit().createImage(url);
+                Image image = f.getToolkit().createImage("images/blackhole.gif");
                 LIGO imagePanel = new LIGO(image);
                 JButton button = new JButton("Learn More");
-                imagePanel.add(button);
 
                 f.setContentPane(imagePanel);
                 f.pack();
@@ -62,6 +60,11 @@ public class LIGO extends JPanel{
                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
                 f.setBounds(0,0,screenSize.width, screenSize.height);               
                 f.setVisible(true);
+                
+                imagePanel.setLayout(new GridBagLayout());
+                GridBagConstraints bc = new GridBagConstraints();
+                bc.anchor = GridBagConstraints.CENTER;
+                imagePanel.add(button);
                 
                 button.addActionListener(new ActionListener(){
                     @Override

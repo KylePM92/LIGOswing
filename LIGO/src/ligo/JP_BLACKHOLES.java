@@ -20,6 +20,7 @@ public class JP_BLACKHOLES extends javax.swing.JPanel {
         initComponents();
         
         this.setBackground(Color.blue);
+        
     }
 
     /**

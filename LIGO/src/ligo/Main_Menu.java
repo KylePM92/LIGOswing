@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,10 +35,21 @@ import ligo.JP_LIGO;
 import ligo.JP_BLACKHOLES;
 import ligo.JP_EINSTEIN;
 import ligo.JP_DISCOVERY;
+import com.leapmotion.leap.*;
 import com.leapmotion.leap.Frame;
 import com.leapmotion.leap.Gesture;
 import com.leapmotion.leap.Listener;
 import com.leapmotion.leap.ScreenTapGesture;
+import com.leapmotion.leap.SwipeGesture;
+import com.leapmotion.leap.SwipeGesture.*;
+import java.util.Arrays;
+import static ligo.Main_Menu.checkPanel;
+import static ligo.Main_Menu.controller;
+import static ligo.Main_Menu.current_panel;
+import static ligo.Main_Menu.nextSlide;
+import static ligo.Main_Menu.panels;
+import static ligo.Main_Menu.pnl;
+import static ligo.Main_Menu.prevSlide;
 
 /**
  *
@@ -45,28 +57,33 @@ import com.leapmotion.leap.ScreenTapGesture;
  */
 public class Main_Menu extends javax.swing.JFrame {
 
-    private static JPanel pnl = new JPanel();
-    private static JPanel intro_panel = new JPanel();
-    private static int current_panel = 0;
-    private static JButton btn_prev = new JButton("Prev");
-    private static JButton btn_next = new JButton("Next");
-    private static JPanel[] panels = new JPanel[5];
+    public static JPanel pnl = new JPanel();
+    public static JPanel intro_panel = new JPanel();
+    public static int current_panel = 0;
+    public static JButton btn_prev = new JButton("Prev");
+    public static JButton btn_next = new JButton("Next");
+    public static JPanel[] panels = new JPanel[5];
+    public static SampleListener listener = new SampleListener();
+    public static Controller controller = new Controller();
+    public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     
     public Main_Menu() throws IOException {
         
         this.setTitle("LIGO");
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        
         this.setBounds(0,0,screenSize.width, screenSize.height);  
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         this.setLocationRelativeTo(null);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        controller.addListener(listener);
 	this.setVisible(true);
         this.setLayout(new BorderLayout());
         
-        JLabel background = new JLabel(new ImageIcon (
-                "images\\\\space.jpg"));
+        JLabel background = new JLabel(new ImageIcon ("images/space.jpg"));
         this.setContentPane(background);
         background.setLayout(new FlowLayout());
+        
+        //Rectangle r = this.getBounds();
         
         pnl.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
         //pnl.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-250));
@@ -78,14 +95,7 @@ public class Main_Menu extends javax.swing.JFrame {
         btn_prev.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int temp = (checkPanel("prev", current_panel));
-                current_panel = temp;
-                JPanel tempPanel = panels[temp];
-                pnl.setVisible(false);
-                pnl.remove(1);      
-                tempPanel.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-250));
-                pnl.add(tempPanel, 1);
-                pnl.setVisible(true); 
+                prevSlide();
             }
         });
        
@@ -93,19 +103,31 @@ public class Main_Menu extends javax.swing.JFrame {
         btn_next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int temp = (checkPanel("next", current_panel));
-                current_panel = temp;
-                JPanel tempPanel = panels[temp];
-                pnl.setVisible(false);
-                pnl.remove(1);
-                tempPanel.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-250));
-                pnl.add(tempPanel, 1);
-                pnl.setVisible(true); 
+                nextSlide();
             }
         });
         
+        JTextField intro_text = new JTextField(
+                "Gravitational waves are 'ripples' in the fabric of space-time caused"
+                        + " by some of the most violent and energetic processes in the "
+                        + "Universe. Albert Einstein predicted the existence of gravitational "
+                        + "waves in 1916 in his general theory of relativity. Einstein's "
+                        + "mathematics showed that massive accelerating objects (such as "
+                        + "neutron stars or black holes orbiting each other) would disrupt "
+                        + "space-time in such a way that 'waves' of distorted space would "
+                        + "radiate from the source (like the movement of waves away from a "
+                        + "stone thrown into a pond). Furthermore, these ripples would travel "
+                        + "at the speed of light through the Universe, carrying with them "
+                        + "information about their cataclysmic origins, as well as invaluable "
+                        + "clues to the nature of gravity itself.");
+        intro_text.setForeground(Color.white);
+        intro_text.setBackground(Color.black);
+        intro_text.setBorder(null);
+
+        
         intro_panel.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-250));
-        intro_panel.setBackground(Color.yellow);
+        intro_panel.setBackground(Color.black);
+        intro_panel.add(intro_text, BorderLayout.EAST);
         pnl.add(btn_prev,BorderLayout.WEST);
         pnl.add(intro_panel,BorderLayout.CENTER);
         pnl.add(btn_next,BorderLayout.EAST);
@@ -121,6 +143,8 @@ public class Main_Menu extends javax.swing.JFrame {
         panels[2] = new JP_BLACKHOLES();
         panels[3] = new JP_EINSTEIN();
         panels[4] = new JP_DISCOVERY();
+        
+        
     }
 
     /**
@@ -148,7 +172,7 @@ public class Main_Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -171,12 +195,14 @@ public class Main_Menu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Main_Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        SampleListener listener = new SampleListener();
-        Controller controller = new Controller();
-        controller.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
-        controller.enableGesture(Gesture.Type.TYPE_KEY_TAP);
-        controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
-        controller.enableGesture(Gesture.Type.TYPE_SWIPE);
+        //SampleListener listener = new SampleListener();
+        //Controller controller = new Controller();
+        //Main_Menu menu = new Main_Menu();
+        
+        
+        
+        //Arrays.stream(Gesture.Type.values()).forEach(
+        //                g -> controller.enableGesture(g));
 
         // Have the sample listener receive events from the controller
         controller.addListener(listener);
@@ -190,7 +216,30 @@ public class Main_Menu extends javax.swing.JFrame {
         }
 
         // Remove the sample listener when done
-        controller.removeListener(listener);
+        //controller.removeListener(listener);
+    }
+    
+    public static void nextSlide(){
+        int temp = (checkPanel("next", current_panel));
+        current_panel = temp;
+        JPanel tempPanel = panels[temp];
+        pnl.setVisible(false);
+        pnl.remove(1);
+        //tempPanel.setPreferredSize(new Dimension(r.width-200, r.height-250));
+        tempPanel.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-250));
+        pnl.add(tempPanel, 1);
+        pnl.setVisible(true);
+    }
+    public static void prevSlide(){
+        int temp = (checkPanel("prev", current_panel));
+        current_panel = temp;
+        JPanel tempPanel = panels[temp];
+        pnl.setVisible(false);
+        pnl.remove(1);      
+        //tempPanel.setPreferredSize(new Dimension(r.width-200, r.height-250));
+        tempPanel.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-250));
+        pnl.add(tempPanel, 1);
+        pnl.setVisible(true); 
     }
     
     public static int checkPanel(String btn, int currentPanel){
@@ -219,34 +268,65 @@ public class Main_Menu extends javax.swing.JFrame {
 
 class SampleListener extends Listener {
 
+    @Override
     public void onConnect(Controller controller) {
+        
         System.out.println("Connected");
+        
+        controller.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
+        controller.enableGesture(Gesture.Type.TYPE_KEY_TAP);
+        controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
+        controller.enableGesture(Gesture.Type.TYPE_SWIPE);
     }
 
+    @Override
     public void onFrame(Controller controller) {
         Frame frame = controller.frame();
 
-        /*System.out.println("Frame id: " + frame.id()
-                   + ", timestamp: " + frame.timestamp()
-                   + ", hands: " + frame.hands().count()
-                   + ", fingers: " + frame.fingers().count()
-                   + ", tools: " + frame.tools().count()
-                   + ", gestures " + frame.gestures().count());
-        */
+        
+//      System.out.println("Frame id: " + frame.id()
+//                   + ", timestamp: " + frame.timestamp()
+//                   + ", hands: " + frame.hands().count()
+//                   + ", fingers: " + frame.fingers().count()
+//                   + ", gestures " + frame.gestures().count());
+        
         if(frame.gestures().count() > 0) {
             System.out.println("Wow, a gesture!");
                         Gesture gesture = frame.gestures().get(0);
             switch(gesture.type()) {
             	case TYPE_SCREEN_TAP:
-            		System.out.println("You've made a screen tap gesture!");
+            		//System.out.println("You've made a screen tap gesture!");
             		break;
             	case TYPE_KEY_TAP:
-            		System.out.println("You've made a key tap gesture!");
+            		//System.out.println("You've made a key tap gesture!");
             		break;
             	case TYPE_CIRCLE:
-            		System.out.println("You've made a circle gesture!");
+            		//System.out.println("You've made a circle gesture!");
             		break;
             	case TYPE_SWIPE:
+                    
+                                SwipeGesture swipeGesture = new SwipeGesture(gesture);
+                                Vector swipeVector = swipeGesture.direction();
+                                float swipeDirection = swipeVector.getX();
+                                
+                                if(swipeDirection < 0){
+                                    prevSlide();
+                                    try {
+                                        Thread.sleep(1000); //1000 milliseconds is one second.
+                                    } catch(InterruptedException ex) {
+                                        Thread.currentThread().interrupt();
+                                    }
+                                }
+                                else if(swipeDirection > 0){
+                                    nextSlide();
+                                    try {
+                                        Thread.sleep(1000); //1000 milliseconds is one second.
+                                    } catch(InterruptedException ex) {
+                                        Thread.currentThread().interrupt();
+                                    }
+                                }
+                                
+                                
         			System.out.println("You've made a swipe gesture!");
         			break;
             	default:
