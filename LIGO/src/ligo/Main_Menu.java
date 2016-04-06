@@ -1,5 +1,6 @@
 package ligo;
 
+import com.leapmotion.leap.Controller;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.swing.AbstractButton;
@@ -33,6 +34,10 @@ import ligo.JP_LIGO;
 import ligo.JP_BLACKHOLES;
 import ligo.JP_EINSTEIN;
 import ligo.JP_DISCOVERY;
+import com.leapmotion.leap.Frame;
+import com.leapmotion.leap.Gesture;
+import com.leapmotion.leap.Listener;
+import com.leapmotion.leap.ScreenTapGesture;
 
 /**
  *
@@ -59,7 +64,7 @@ public class Main_Menu extends javax.swing.JFrame {
         this.setLayout(new BorderLayout());
         
         JLabel background = new JLabel(new ImageIcon (
-                "C:\\\\Users\\\\Kyle\\\\Desktop\\\\LSU\\\\2016Spring\\\\CSC4243\\\\LIGOswing\\\\LIGO\\\\images\\\\space.jpg"));
+                "images\\\\space.jpg"));
         this.setContentPane(background);
         background.setLayout(new FlowLayout());
         
@@ -166,13 +171,26 @@ public class Main_Menu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Main_Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        SampleListener listener = new SampleListener();
+        Controller controller = new Controller();
+        controller.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
+        controller.enableGesture(Gesture.Type.TYPE_KEY_TAP);
+        controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
+        controller.enableGesture(Gesture.Type.TYPE_SWIPE);
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-           
-            }
-        });
+        // Have the sample listener receive events from the controller
+        controller.addListener(listener);
+
+        // Keep this process running until Enter is pressed
+        System.out.println("Press Enter to quit...");
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Remove the sample listener when done
+        controller.removeListener(listener);
     }
     
     public static int checkPanel(String btn, int currentPanel){
@@ -193,10 +211,51 @@ public class Main_Menu extends javax.swing.JFrame {
                newPanel = currentPanel + 1;
            }
         }
-        
         return newPanel;
-
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+}
+
+class SampleListener extends Listener {
+
+    public void onConnect(Controller controller) {
+        System.out.println("Connected");
+    }
+
+    public void onFrame(Controller controller) {
+        Frame frame = controller.frame();
+
+        /*System.out.println("Frame id: " + frame.id()
+                   + ", timestamp: " + frame.timestamp()
+                   + ", hands: " + frame.hands().count()
+                   + ", fingers: " + frame.fingers().count()
+                   + ", tools: " + frame.tools().count()
+                   + ", gestures " + frame.gestures().count());
+        */
+        if(frame.gestures().count() > 0) {
+            System.out.println("Wow, a gesture!");
+                        Gesture gesture = frame.gestures().get(0);
+            switch(gesture.type()) {
+            	case TYPE_SCREEN_TAP:
+            		System.out.println("You've made a screen tap gesture!");
+            		break;
+            	case TYPE_KEY_TAP:
+            		System.out.println("You've made a key tap gesture!");
+            		break;
+            	case TYPE_CIRCLE:
+            		System.out.println("You've made a circle gesture!");
+            		break;
+            	case TYPE_SWIPE:
+        			System.out.println("You've made a swipe gesture!");
+        			break;
+            	default:
+        			System.out.println("Broken gesture");
+        			break;
+            }
+            System.out.println(gesture.type());
+        	ScreenTapGesture screentap = new ScreenTapGesture(frame.gestures().get(0));
+        	System.out.println(screentap.position());
+        }
+    }
 }
