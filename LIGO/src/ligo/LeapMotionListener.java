@@ -11,7 +11,7 @@ import com.leapmotion.leap.*;
  *
  * @author Mike
  */
-public class SampleListener extends Listener{
+public class LeapMotionListener extends Listener{
     
     public void onConnect(Controller controller){
         System.out.println("Connected");

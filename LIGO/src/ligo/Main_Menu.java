@@ -44,6 +44,10 @@ public class Main_Menu extends javax.swing.JFrame {
     private JButton btn_prev = new JButton("Prev");
     private JButton btn_next = new JButton("Next");
     
+    public JLabel label;
+    public Controller controller;
+    public LeapMotionListener listener;
+    
     public Main_Menu() throws IOException {
         this.setTitle("LIGO");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -53,6 +57,9 @@ public class Main_Menu extends javax.swing.JFrame {
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	this.setVisible(true);
         this.setLayout(new BorderLayout());
+        
+        //Initialize the LeapMotion listeners
+        controller.addListener(listener);
         
         JLabel background = new JLabel(new ImageIcon ("C:\\\\Users\\\\Kyle\\\\Desktop\\\\LSU\\\\2016Spring\\\\CSC4243\\\\LIGOswing\\\\LIGO\\\\images\\\\space.jpg"));
         this.setContentPane(background);
@@ -142,26 +149,8 @@ public class Main_Menu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Main_Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-                SampleListener listener = new SampleListener();
-	        Controller controller = new Controller();
-	        controller.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
-	        controller.enableGesture(Gesture.Type.TYPE_KEY_TAP);
-	        controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
-	        controller.enableGesture(Gesture.Type.TYPE_SWIPE);
-                
-                controller.addListener(listener);
-                
-                System.out.println("Press Enter to quit...");
-
-                try {
-	            System.in.read();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	
-                controller.removeListener(listener);
-
         
+               
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
