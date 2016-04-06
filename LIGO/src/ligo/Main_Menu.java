@@ -28,6 +28,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+import com.leapmotion.leap.*;
+import java.io.IOException;
+
+
 
 /**
  *
@@ -138,7 +142,26 @@ public class Main_Menu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Main_Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+                SampleListener listener = new SampleListener();
+	        Controller controller = new Controller();
+	        controller.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
+	        controller.enableGesture(Gesture.Type.TYPE_KEY_TAP);
+	        controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
+	        controller.enableGesture(Gesture.Type.TYPE_SWIPE);
+                
+                controller.addListener(listener);
+                
+                System.out.println("Press Enter to quit...");
 
+                try {
+	            System.in.read();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	
+                controller.removeListener(listener);
+
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
