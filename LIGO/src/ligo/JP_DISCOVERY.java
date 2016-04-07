@@ -6,6 +6,12 @@
 package ligo;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -13,13 +19,24 @@ import java.awt.Color;
  */
 public class JP_DISCOVERY extends javax.swing.JPanel {
 
+    public Image image;
+   public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     /**
-     * Creates new form JP_DISCOVERY
+     * Creates new form JP_BLACKHOLES
      */
     public JP_DISCOVERY() {
-        initComponents();
-        
-        this.setBackground(Color.orange);
+       
+        try
+        {
+            image = ImageIO.read(new File("images/Discovery.png"));
+        }
+        catch (Exception e) { /*handled in paintComponent()*/ }
+    }
+ 
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+        g.drawImage(image.getScaledInstance(this.getSize().width, this.getSize().height, Image.SCALE_SMOOTH), 0,0,this);
     }
 
     /**

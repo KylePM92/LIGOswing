@@ -6,6 +6,12 @@
 package ligo;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -13,13 +19,24 @@ import java.awt.Color;
  */
 public class JP_LIGO extends javax.swing.JPanel {
 
+     public Image image;
+   public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     /**
-     * Creates new form LIGO_Panel
+     * Creates new form JP_BLACKHOLES
      */
     public JP_LIGO() {
-        initComponents();
-        
-        this.setBackground(Color.red);
+       
+        try
+        {
+            image = ImageIO.read(new File("images/LIGO.png"));
+        }
+        catch (Exception e) { /*handled in paintComponent()*/ }
+    }
+ 
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+        g.drawImage(image.getScaledInstance(this.getSize().width, this.getSize().height, Image.SCALE_SMOOTH), 0,0,this);
     }
 
     /**
