@@ -30,7 +30,9 @@ import com.leapmotion.leap.Listener;
 import com.leapmotion.leap.ScreenTapGesture;
 import com.leapmotion.leap.SwipeGesture;
 import com.leapmotion.leap.Vector;
+import java.io.File;
 import java.net.SocketException;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JTextArea;
@@ -108,13 +110,6 @@ public class LIGO extends JPanel{
             }
         });
         
-        //frame.setBounds(0,0,screenSize.width, screenSize.height);  
-        //frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        //frame.setLocationRelativeTo(null);
-	//frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //controller.addListener(listener);
-	//main_frame.setVisible(true);
-        
         btn_prev.setActionCommand("enable");
         btn_prev.addActionListener(new ActionListener() {
             @Override
@@ -132,7 +127,7 @@ public class LIGO extends JPanel{
         });      
    
         //JP_LIGO jp_ligo = new JP_LIGO();
-        panels[0] = intro_panel;
+        panels[0] = new JP_MAIN();
         panels[1] = new JP_LIGO();
         panels[2] = new JP_BLACKHOLES();
         panels[3] = new JP_EINSTEIN();
@@ -177,7 +172,7 @@ public class LIGO extends JPanel{
         receiver.addListener("/1/toggle4", handler1); //next
         receiver.addListener("/1/toggle3", handler2); //prev
         receiver.addListener("/1/toggle2", handler3); //learn more
-        
+        controller.addListener(listener);
         receiver.startListening();
         System.out.println("Server is listening on port " + receiverPort + "...");
     }
@@ -209,45 +204,17 @@ public class LIGO extends JPanel{
         frame.setContentPane(background);
         background.setLayout(new FlowLayout());
         
-        //Rectangle r = this.getBounds();
-        
         pnl.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
-        //pnl.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-250));
-        //pnl.setBackground(Color.black);
-        //pnl.setBorder(BorderFactory.createLineBorder(Color.gray));
         pnl.setOpaque(false);
         
-        JTextArea intro_text = new JTextArea(
-                "Gravitational waves are 'ripples' in the fabric of space-time caused"
-                        + " by some of the most violent and energetic processes in the "
-                        + "Universe. Albert Einstein predicted the existence of gravitational "
-                        + "waves in 1916 in his general theory of relativity. Einstein's "
-                        + "mathematics showed that massive accelerating objects (such as "
-                        + "neutron stars or black holes orbiting each other) would disrupt "
-                        + "space-time in such a way that 'waves' of distorted space would "
-                        + "radiate from the source (like the movement of waves away from a "
-                        + "stone thrown into a pond). Furthermore, these ripples would travel "
-                        + "at the speed of light through the Universe, carrying with them "
-                        + "information about their cataclysmic origins, as well as invaluable "
-                        + "clues to the nature of gravity itself.");
-        
-        intro_text.setPreferredSize(new Dimension((screenSize.width-200 )/2, (screenSize.height-250)/2));
-        intro_text.setLineWrap(true);
-        intro_text.setWrapStyleWord(true);
-        intro_text.setForeground(Color.white);
-        intro_text.setBackground(Color.black);
-        //intro_text.setBorder(null);
-        intro_text.setBorder(BorderFactory.createLineBorder(Color.white));
-        intro_text.setLayout(new GridBagLayout());
-        intro_text.setPreferredSize(new Dimension((screenSize.width/2)-200, screenSize.height-350));
+        JPanel tempPanel = panels[0];
+        tempPanel.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-100));
         GridBagConstraints bc = new GridBagConstraints();
         bc.anchor = GridBagConstraints.EAST;
         
-        intro_panel.setPreferredSize(new Dimension(screenSize.width-200, screenSize.height-100));
-        intro_panel.setBackground(Color.black);
-        intro_panel.add(intro_text, BorderLayout.EAST);
+        
         pnl.add(btn_prev,BorderLayout.WEST);
-        pnl.add(intro_panel,BorderLayout.CENTER);
+        pnl.add(tempPanel);
         pnl.add(btn_next,BorderLayout.EAST);
         background.add(pnl);
         frame.add(pnl, BorderLayout.CENTER);
@@ -321,11 +288,11 @@ public class LIGO extends JPanel{
         com.leapmotion.leap.Frame frame = controller.frame();
 
         
-//      System.out.println("Frame id: " + frame.id()
-//                   + ", timestamp: " + frame.timestamp()
-//                   + ", hands: " + frame.hands().count()
-//                   + ", fingers: " + frame.fingers().count()
-//                   + ", gestures " + frame.gestures().count());
+      System.out.println("Frame id: " + frame.id()
+                   + ", timestamp: " + frame.timestamp()
+                   + ", hands: " + frame.hands().count()
+                   + ", fingers: " + frame.fingers().count()
+                   + ", gestures " + frame.gestures().count());
         
         if(frame.gestures().count() > 0) {
             System.out.println("Wow, a gesture!");
