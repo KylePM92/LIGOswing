@@ -33,6 +33,8 @@ import com.leapmotion.leap.Vector;
 import java.io.File;
 import java.net.SocketException;
 import javax.imageio.ImageIO;
+import javax.media.CannotRealizeException;
+import javax.media.NoPlayerException;
 import javax.swing.BorderFactory;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JTextArea;
@@ -71,8 +73,10 @@ public class LIGO extends JPanel{
     public static int binaryCheck = 0;
     public static int mainBuildCheck = 0;
     
-    public static void main(String[] args) throws MalformedURLException, SocketException{
+    public static void main(String[] args) throws MalformedURLException, SocketException, IOException, NoPlayerException, CannotRealizeException{
       
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
