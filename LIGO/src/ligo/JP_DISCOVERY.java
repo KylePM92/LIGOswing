@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -43,6 +44,7 @@ public class JP_DISCOVERY extends javax.swing.JPanel {
     public int dHeight = screenSize.height;
     public int halfWidth = ((dWidth/2)-200);
     public int halfHeight= ((dHeight/2)-100);
+    public static JFrame frame2;
     /**
      * Creates new form JP_BLACKHOLES
      * @throws java.io.IOException
@@ -129,18 +131,7 @@ public class JP_DISCOVERY extends javax.swing.JPanel {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                NativeInterface.open();
-                
-                JFrame frame2 = new JFrame("Youtube video");
-                frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                JPanel wbPanel = new JPanel(new BorderLayout());
-                JWebBrowser wb = new JWebBrowser();
-                wbPanel.add(wb, BorderLayout.CENTER);
-                wb.setBarsVisible(false);
-                wb.navigate("https://www.youtube.com/embed/B4XzLDM3Py8?rel=0&autoplay=1");
-                frame2.add(wbPanel, BorderLayout.CENTER);
-                frame2.setSize(screenSize.width, screenSize.height);
-                frame2.setVisible(true);
+                runVidDiscovery();
             }
         });         
         JPanel btnPanel = new JPanel();
@@ -158,7 +149,30 @@ public class JP_DISCOVERY extends javax.swing.JPanel {
         sp.add(left);
         sp.add(right);
         this.add(sp, BorderLayout.CENTER);       
-     }             
+     }  
+     
+     public static void runVidDiscovery(){
+         NativeInterface.open();
+         SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                frame2 = new JFrame("Youtube video");
+                frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                JPanel wbPanel = new JPanel(new BorderLayout());
+                JWebBrowser wb = new JWebBrowser();
+                wbPanel.add(wb, BorderLayout.CENTER);
+                wb.setBarsVisible(false);
+                wb.navigate("https://www.youtube.com/embed/B4XzLDM3Py8?rel=0&autoplay=1");
+                frame2.add(wbPanel, BorderLayout.CENTER);
+                frame2.setSize(screenSize.width, screenSize.height);
+                frame2.setVisible(true);
+            }
+        });
+                
+     }
+     
+     public static void dispose_disc (){
+         frame2.dispose();
+     }
      
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

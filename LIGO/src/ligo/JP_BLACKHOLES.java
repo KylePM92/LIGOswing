@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import static ligo.LIGO.frame;
 
@@ -46,6 +47,7 @@ public class JP_BLACKHOLES extends javax.swing.JPanel {
     public int dHeight = screenSize.height;
     public int halfWidth = ((dWidth/2)-200);
     public int halfHeight= ((dHeight/2)-100);
+     public static JFrame frame2;
     /**
      * Creates new form JP_BLACKHOLES
      * @throws java.io.IOException
@@ -148,18 +150,7 @@ public class JP_BLACKHOLES extends javax.swing.JPanel {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                NativeInterface.open();
-                
-                JFrame frame2 = new JFrame("Youtube video");
-                frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                JPanel wbPanel = new JPanel(new BorderLayout());
-                JWebBrowser wb = new JWebBrowser();
-                wbPanel.add(wb, BorderLayout.CENTER);
-                wb.setBarsVisible(false);
-                wb.navigate("https://www.youtube.com/embed/e-P5IFTqB98?rel=0&autoplay=1");
-                frame2.add(wbPanel, BorderLayout.CENTER);
-                frame2.setSize(screenSize.width, screenSize.height);
-                frame2.setVisible(true);
+                runVidBlackholes();
             }
         });         
         JPanel btnPanel = new JPanel();
@@ -202,6 +193,27 @@ public class JP_BLACKHOLES extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public static void runVidBlackholes(){
+        NativeInterface.open();
+        SwingUtilities.invokeLater(new Runnable() {
+              public void run() {
+                frame2 = new JFrame("Youtube video");
+                frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                JPanel wbPanel = new JPanel(new BorderLayout());
+                JWebBrowser wb = new JWebBrowser();
+                wbPanel.add(wb, BorderLayout.CENTER);
+                wb.setBarsVisible(false);
+                wb.navigate("https://www.youtube.com/embed/e-P5IFTqB98?rel=0&autoplay=1");
+                frame2.add(wbPanel, BorderLayout.CENTER);
+                frame2.setSize(screenSize.width, screenSize.height);
+                frame2.setVisible(true);
+              }
+        });          
+    }
+    
+    public static void dispose_black (){
+         frame2.dispose();
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

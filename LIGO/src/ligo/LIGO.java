@@ -26,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 import com.illposed.osc.*;
 import com.leapmotion.leap.Controller;
 import com.leapmotion.leap.Gesture;
+import com.leapmotion.leap.KeyTapGesture;
 import com.leapmotion.leap.Listener;
 import com.leapmotion.leap.ScreenTapGesture;
 import com.leapmotion.leap.SwipeGesture;
@@ -40,6 +41,17 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JTextArea;
 import static ligo.LIGO.prevSlide;
 import static ligo.LIGO.nextSlide;
+import static ligo.JP_DISCOVERY.runVidDiscovery;
+import static ligo.JP_LIGO.runVidLigo;
+import static ligo.JP_BLACKHOLES.runVidBlackholes;
+import static ligo.JP_EINSTEIN.runVidEinstein;
+import static ligo.JP_DISCOVERY.dispose_disc;
+import static ligo.JP_LIGO.dispose_ligo;
+import static ligo.JP_BLACKHOLES.dispose_black;
+import static ligo.JP_EINSTEIN.dispose_einst;
+import static ligo.LIGO.current_panel;
+import static ligo.LIGO.checkVideoPanel;
+
 
 /**
  * @author Danny Truong, Kyle Martinez, Michael Chan
@@ -72,6 +84,7 @@ public class LIGO extends JPanel{
     public static LIGO imagePanel;
     public static int binaryCheck = 0;
     public static int mainBuildCheck = 0;
+    public static Boolean toggleCheck = true;
     
     public static void main(String[] args) throws MalformedURLException, SocketException, IOException, NoPlayerException, CannotRealizeException{
       
@@ -163,19 +176,29 @@ public class LIGO extends JPanel{
             @Override
             public void acceptMessage(java.util.Date time, OSCMessage message) {
                 System.out.println("Handler1 called with address " + message.getAddress());
-                if (binaryCheck == 0){
-                    learnMore();
-                    binaryCheck++;                    
-                }else{
-                    //backToSplash();
-                    //binaryCheck--;
-                }                
+                learnMore();             
+           } 
+        };
+        OSCListener handler4 = new OSCListener() {
+            @Override
+            public void acceptMessage(java.util.Date time, OSCMessage message) {
+                System.out.println("Handler1 called with address " + message.getAddress());
+                if(toggleCheck){
+                    checkVideoPanel();
+                    toggleCheck = false;
+                }
+                else{
+                    disposeVideoPanel();
+                    toggleCheck = true;
+                }
+                
            } 
         };
         
         receiver.addListener("/1/toggle4", handler1); //next
         receiver.addListener("/1/toggle3", handler2); //prev
         receiver.addListener("/1/toggle2", handler3); //learn more
+        receiver.addListener("/1/toggle7", handler4); //learn more
         controller.addListener(listener);
         receiver.startListening();
         System.out.println("Server is listening on port " + receiverPort + "...");
@@ -270,6 +293,19 @@ public class LIGO extends JPanel{
         }
         return newPanel;
     }
+   
+    public static void checkVideoPanel(){
+       if(current_panel == 0)       { runVidDiscovery();}
+       else if(current_panel == 1)  { runVidLigo();}
+       else if(current_panel == 2)  { runVidBlackholes();}
+       else if(current_panel == 3)  { runVidEinstein();}              
+   }
+     public static void disposeVideoPanel(){
+       if(current_panel == 0)       { dispose_disc();}
+       else if(current_panel == 1)  { dispose_ligo();}
+       else if(current_panel == 2)  { dispose_black();}
+       else if(current_panel == 3)  { dispose_einst();}              
+   }
     // Variables declaration - do not modify                     
     // End of variables declaration                   
 }
@@ -292,22 +328,33 @@ public class LIGO extends JPanel{
         com.leapmotion.leap.Frame frame = controller.frame();
 
         
-      System.out.println("Frame id: " + frame.id()
-                   + ", timestamp: " + frame.timestamp()
-                   + ", hands: " + frame.hands().count()
-                   + ", fingers: " + frame.fingers().count()
-                   + ", gestures " + frame.gestures().count());
+//      System.out.println("Frame id: " + frame.id()
+//                   + ", timestamp: " + frame.timestamp()
+//                   + ", hands: " + frame.hands().count()
+//                   + ", fingers: " + frame.fingers().count()
+//                   + ", gestures " + frame.gestures().count());
         
         if(frame.gestures().count() > 0) {
             System.out.println("Wow, a gesture!");
                         Gesture gesture = frame.gestures().get(0);
             switch(gesture.type()) {
             	case TYPE_SCREEN_TAP:
-            		//System.out.println("You've made a screen tap gesture!");
-            		break;
+//            	       ScreenTapGesture tapGesture = new ScreenTapGesture(gesture);
+//                       Vector tapVector = tapGesture.direction();
+//                       float tapDirection = tapVector.getZ();
+//                       if(tapDirection > 0)
+//                           { checkVideoPanel(current_panel);}                   
+//                       System.out.println("TAP GESTURE!");
+                       break;
             	case TYPE_KEY_TAP:
-            		//System.out.println("You've made a key tap gesture!");
-            		break;
+//            	       KeyTapGesture keyTapGesture = new KeyTapGesture(gesture);
+//                       Vector keyTapVector = keyTapGesture.direction();
+//                       float keyTapDirection = keyTapVector.getY();
+//                       if(keyTapDirection > 0 || keyTapDirection < 0 )
+//                           { checkVideoPanel();}                   
+//                       System.out.println("TAP GESTURE!");
+//                       System.out.println("current panel = " + current_panel);
+                       break;
             	case TYPE_CIRCLE:
             		//System.out.println("You've made a circle gesture!");
             		break;
