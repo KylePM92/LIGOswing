@@ -15,9 +15,6 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.border.EmptyBorder;
 
-import com.xuggle.mediatool.IMediaReader;
-import com.xuggle.mediatool.MediaListenerAdapter;
-import com.xuggle.mediatool.ToolFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.media.CannotRealizeException;
@@ -123,7 +120,9 @@ public class JP_LIGO extends javax.swing.JPanel {
         JLabel imageLabel = new JLabel("",JLabel.CENTER);
         imageLabel.setIcon(new ImageIcon(new ImageIcon("images/About_Page_Front.jpg").getImage(
             ).getScaledInstance(halfWidth, halfHeight, Image.SCALE_REPLICATE)));
-        JButton btn = new JButton("play");
+        
+        ImageIcon btnImage = new ImageIcon((new ImageIcon("images/About_Page_Front.jpg").getImage()));
+        JButton btn = new JButton("",btnImage);
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,12 +140,16 @@ public class JP_LIGO extends javax.swing.JPanel {
                 frame2.setVisible(true);
             }
         });         
-        
-        btn.setSize(halfWidth-200, halfHeight-200);
-        btn.setMargin(new Insets(20,20,20,20));
-     
+        JPanel btnPanel = new JPanel();
+        btnPanel.setLayout(new BorderLayout());
+        btnPanel.setPreferredSize(new Dimension(halfWidth, halfHeight));
+        btn.setMaximumSize(new Dimension(100, 100));
+        btnPanel.add(btn, BorderLayout.CENTER);
+        btnPanel.setBorder(new EmptyBorder(20,50,50,50));
+        btnPanel.setBackground(Color.black);
+       
         left.add(imageLabel, BorderLayout.PAGE_START);
-        left.add(btn, BorderLayout.CENTER);
+        left.add(btnPanel, BorderLayout.SOUTH);
         
         //add Left and Right Panel
         sp.add(left);
