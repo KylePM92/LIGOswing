@@ -131,11 +131,11 @@ public class LIGO extends JPanel{
         });      
    
         //JP_LIGO jp_ligo = new JP_LIGO();
-        panels[0] = new JP_MAIN();
+        panels[0] = new JP_DISCOVERY();
         panels[1] = new JP_LIGO();
         panels[2] = new JP_BLACKHOLES();
         panels[3] = new JP_EINSTEIN();
-        panels[4] = new JP_DISCOVERY();
+        
         
         //TouchOSC    
         int receiverPort = 8000;
@@ -256,13 +256,13 @@ public class LIGO extends JPanel{
         
         if("prev".equals(btn)){
            if(currentPanel == 0){
-               newPanel = 4;
+               newPanel = 3;
            }else{
                newPanel = currentPanel - 1;
            }
         }
         else{
-            if(currentPanel == 4){
+            if(currentPanel == 3){
                newPanel = 0;
            }else{
                newPanel = currentPanel + 1;

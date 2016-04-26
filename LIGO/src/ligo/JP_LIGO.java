@@ -62,7 +62,7 @@ public class JP_LIGO extends javax.swing.JPanel {
         
         //Right jpanel
         
-        JTextArea header = new JTextArea("ABOUT");
+        JTextArea header = new JTextArea("ABOUT LIGO");
         header.setWrapStyleWord(true);
         header.setLineWrap(true);
         header.setEditable(false);
@@ -118,10 +118,10 @@ public class JP_LIGO extends javax.swing.JPanel {
 
         //left jpanel
         JLabel imageLabel = new JLabel("",JLabel.CENTER);
-        imageLabel.setIcon(new ImageIcon(new ImageIcon("images/About_Page_Front.jpg").getImage(
+        imageLabel.setIcon(new ImageIcon(new ImageIcon("images/LIGO.jpg").getImage(
             ).getScaledInstance(halfWidth, halfHeight, Image.SCALE_REPLICATE)));
         
-        ImageIcon btnImage = new ImageIcon((new ImageIcon("images/About_Page_Front.jpg").getImage()));
+        ImageIcon btnImage = new ImageIcon((new ImageIcon("images/grav_waves_still.jpg").getImage()));
         JButton btn = new JButton("",btnImage);
         btn.addActionListener(new ActionListener() {
             @Override
@@ -134,7 +134,7 @@ public class JP_LIGO extends javax.swing.JPanel {
                 JWebBrowser wb = new JWebBrowser();
                 wbPanel.add(wb, BorderLayout.CENTER);
                 wb.setBarsVisible(false);
-                wb.navigate("https://www.youtube.com/embed/6XSAVqm0XBI?rel=0&autoplay=1");
+                wb.navigate("https://www.youtube.com/embed/RzZgFKoIfQI?rel=0&autoplay=1");
                 frame2.add(wbPanel, BorderLayout.CENTER);
                 frame2.setSize(screenSize.width, screenSize.height);
                 frame2.setVisible(true);
